@@ -45,8 +45,6 @@ private class PossibleChannelTriggerHandler_Test {
         } catch (exception e) {
             System.debug(e.getMessage());
         }
-        
-        //added comment
     }
     
     @isTest
@@ -162,6 +160,5 @@ private class PossibleChannelTriggerHandler_Test {
         } catch (exception e) {
             System.debug(e.getMessage());
         }
-        
     }
 }
