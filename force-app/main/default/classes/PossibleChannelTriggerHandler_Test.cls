@@ -46,7 +46,7 @@ private class PossibleChannelTriggerHandler_Test {
             System.debug(e.getMessage());
         }
         
-        
+        //added comment
     }
     
     @isTest
