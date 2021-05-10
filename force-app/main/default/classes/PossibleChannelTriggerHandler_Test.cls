@@ -14,6 +14,8 @@ private class PossibleChannelTriggerHandler_Test {
             Possible_Channel__c newPossibleChannel = new Possible_Channel__c(Name='Possible Channel '+i, Possible_Channel_Description__c='Possible Channel '+i+' could be a great channel.');
             possibleChannelList.add(newPossibleChannel);
         }
+        Possible_Channel__c newPossibleChannel = new Possible_Channel__c(Name='Super New Possible Channel', Possible_Channel_Description__c='a');
+        insert newPossibleChannel;
         insert channelList;
         insert possibleChannelList;
     }
@@ -45,6 +47,8 @@ private class PossibleChannelTriggerHandler_Test {
         } catch (exception e) {
             System.debug(e.getMessage());
         }
+        
+        
     }
     
     @isTest
@@ -66,7 +70,8 @@ private class PossibleChannelTriggerHandler_Test {
         //Update Name
         for(Integer i=0 ; i<bulkTestCount ; i++){
             Possible_Channel__c newPossChannel = new Possible_Channel__c(Name='Newest Possible Channel '+i, Possible_Channel_Description__c='New Possible Channel '+i+'is a great possible channel.');
-            newPossChannelList[i] = newPossChannel;
+            newPossChannelList[i].Name = newPossChannel.Name;
+            newPossChannelList[i].Possible_Channel_Description__c = newPossChannel.Possible_Channel_Description__c;
         }
         try {
         	update newPossChannelList;
@@ -76,7 +81,8 @@ private class PossibleChannelTriggerHandler_Test {
         //Update Description
         for(Integer i=0 ; i<bulkTestCount ; i++){
             Possible_Channel__c newPossChannel = new Possible_Channel__c(Name='Newest Possible Channel '+i, Possible_Channel_Description__c='Newest Possible Channel '+i+'is a great possible channel.');
-            newPossChannelList[i] = newPossChannel;
+            newPossChannelList[i].Name = newPossChannel.Name;
+            newPossChannelList[i].Possible_Channel_Description__c = newPossChannel.Possible_Channel_Description__c;
         }
         try {
         	update newPossChannelList;
@@ -118,13 +124,13 @@ private class PossibleChannelTriggerHandler_Test {
         }
         Possible_Channel__c newPossChannel5 = new Possible_Channel__c(Name='Channel 1', Possible_Channel_Description__c='New Possible Channel is a great possible channel.');
         try {
-        	insert newPossChannel5; //Repeat name and description with Possible Channel
+        	insert newPossChannel5; //Repeat name with Possible Channel
         } catch (exception e){
             System.debug(e.getMessage());
         }
         Possible_Channel__c newPossChannel6 = new Possible_Channel__c(Name='New Possible Channel', Possible_Channel_Description__c='Channel 3 is a great channel.');
         try {
-        	insert newPossChannel6; //Repeat name and description with Possible Channel
+        	insert newPossChannel6; //Repeat description with Possible Channel
         } catch (exception e){
             System.debug(e.getMessage());
         }
@@ -154,11 +160,13 @@ private class PossibleChannelTriggerHandler_Test {
             System.debug(e.getMessage());
         }
         //Repeat Possible Channel Description
-        PossChannels[1].Possible_Channel_Description__c = 'Possible Channel 1 could be a great channel.';
+        //PossChannels[1].Possible_Channel_Description__c = 'Possible Channel 1 could be a great channel.';
+        PossChannels[1].Possible_Channel_Description__c = 'a';
         try {
             update PossChannels[1];
         } catch (exception e) {
             System.debug(e.getMessage());
         }
+        
     }
 }
