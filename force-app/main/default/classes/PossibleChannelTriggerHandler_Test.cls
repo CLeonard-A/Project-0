@@ -8,16 +8,20 @@ private class PossibleChannelTriggerHandler_Test {
         List<Channel__c> channelList = new List<Channel__c>();
         List<Possible_Channel__c> possibleChannelList = new List<Possible_Channel__c>();
         for(Integer i=0 ; i<testDataCount ; i++){
+            Possible_Channel__c newPossChannel = new Possible_Channel__c(Name='Channel '+i, Possible_Channel_Description__c='Channel '+i+' is a great channel.', Approval__c='Approved');
+            possibleChannelList.add(newPossChannel);
+        }
+        for(Integer i=0 ; i<testDataCount ; i++){
             Channel__c newChannel = new Channel__c(Name='Channel '+i, Channel_Description__c='Channel '+i+' is a great channel.');
             channelList.add(newChannel);
-            
-            Possible_Channel__c newPossibleChannel = new Possible_Channel__c(Name='Possible Channel '+i, Possible_Channel_Description__c='Possible Channel '+i+' could be a great channel.');
+            Integer j = i + testDataCount;
+            Possible_Channel__c newPossibleChannel = new Possible_Channel__c(Name='Possible Channel '+j, Possible_Channel_Description__c='Possible Channel '+j+' could be a great channel.');
             possibleChannelList.add(newPossibleChannel);
         }
         Possible_Channel__c newPossibleChannel = new Possible_Channel__c(Name='Super New Possible Channel', Possible_Channel_Description__c='a');
         insert newPossibleChannel;
-        insert channelList;
         insert possibleChannelList;
+        insert channelList;
     }
     
     @isTest
@@ -41,9 +45,10 @@ private class PossibleChannelTriggerHandler_Test {
             System.debug(e.getMessage());
         }
         //Update Description
-        PossChannels[1].Possible_Channel_Description__c = 'This possible channel is a great possible channel.';
+        Integer possChannelPosition = 15;	//Should be greater than variable testDataCount but less than 2*testDataCount
+        PossChannels[possChannelPosition].Possible_Channel_Description__c = 'This possible channel is a great possible channel.';
         try {
-            update PossChannels[1];
+            update PossChannels[possChannelPosition];
         } catch (exception e) {
             System.debug(e.getMessage());
         }
@@ -118,19 +123,19 @@ private class PossibleChannelTriggerHandler_Test {
         //Repeat with Channels
         Possible_Channel__c newPossChannel4 = new Possible_Channel__c(Name='Channel 1', Possible_Channel_Description__c='Channel 1 is a great channel.');
         try {
-        	insert newPossChannel4; //Repeat name and description with Possible Channel
+        	insert newPossChannel4; //Repeat name and description with Channel
         } catch (exception e){
             System.debug(e.getMessage());
         }
         Possible_Channel__c newPossChannel5 = new Possible_Channel__c(Name='Channel 1', Possible_Channel_Description__c='New Possible Channel is a great possible channel.');
         try {
-        	insert newPossChannel5; //Repeat name with Possible Channel
+        	insert newPossChannel5; //Repeat name with Channel
         } catch (exception e){
             System.debug(e.getMessage());
         }
         Possible_Channel__c newPossChannel6 = new Possible_Channel__c(Name='New Possible Channel', Possible_Channel_Description__c='Channel 3 is a great channel.');
         try {
-        	insert newPossChannel6; //Repeat description with Possible Channel
+        	insert newPossChannel6; //Repeat description with Channel
         } catch (exception e){
             System.debug(e.getMessage());
         }
